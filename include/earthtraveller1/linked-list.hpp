@@ -30,7 +30,7 @@ namespace hello {
             }
 
             auto operator!=(Iterator other) -> bool {
-                return other->m_ptr != m_ptr;
+                return other.m_ptr != m_ptr;
             }
 
             auto operator*() -> NodeType* {
@@ -117,19 +117,19 @@ namespace hello {
         }
 
         auto begin() -> Iterator<Node> {
-            return Iterator{m_first};
+            return Iterator<Node>{m_first};
         }
 
         auto end() -> Iterator<Node> {
-            return Iterator{nullptr};
+            return Iterator<Node>{nullptr};
         }
 
         auto cbegin() const -> Iterator<const Node> {
-            return Iterator{m_first};
+            return Iterator<const Node>{m_first};
         }
 
         auto cend() const -> Iterator<const Node> {
-            return Iterator{nullptr};
+            return Iterator<const Node>{nullptr};
         }
 
         auto begin() const -> Iterator<const Node> {
@@ -146,15 +146,18 @@ namespace hello {
     };
 }
 
-template<typename T> auto operator<<(std::ostream& stream, const hello::LinkedList<T> list) -> std::ostream& {
+template<typename T> auto operator<<(std::ostream& stream, const hello::LinkedList<T>& list) -> std::ostream& {
     stream << "[";
     const auto list_len = list.size();
-    for (size_t i = 0; i < list_len; i++) {
-        stream << list[i];
+    size_t i = 0;
+    for (const auto item : list) {
+        stream << item;
 
         if (i != list_len - 1) {
             stream << ", ";
         }
+
+        i++;
     }
     stream << "]";
 
