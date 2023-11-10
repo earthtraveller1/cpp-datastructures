@@ -33,8 +33,8 @@ namespace hello {
                 return other.m_ptr != m_ptr;
             }
 
-            auto operator*() -> NodeType* {
-                return m_ptr;
+            auto operator*() -> T {
+                return m_ptr->value;
             }
 
         private:
