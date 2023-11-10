@@ -72,6 +72,22 @@ namespace hello {
             new_node->value = value;
         }
 
+        auto remove(size_t position) -> void {
+            Node* current = m_first, previous = nullptr;
+
+            for (size_t i = 0; i < position; i++) {
+                Node* next = current->next;
+                previous = current;
+                current = next;
+            }
+
+            // Now, current should point to the target Node.
+
+            Node* next = current->next;
+            delete current;
+            previous->next = next;
+        }
+
         auto append(T value) -> void {
             if (size() == 0) {
                 insert(0, value);
