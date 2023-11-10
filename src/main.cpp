@@ -9,6 +9,9 @@ auto main(int argc, const char* const* argv) -> int {
     list.append(6);
     list.append(7);
     list.insert(2, 8);
+    list.insert(0, 9);
+
+    list.remove(4);
 
     std::cout << "My List: " << list << std::endl;
 }
