@@ -73,7 +73,7 @@ namespace hello {
         }
 
         auto remove(size_t position) -> void {
-            Node* current = m_first, previous = nullptr;
+            Node* current = m_first, *previous = nullptr;
 
             for (size_t i = 0; i < position; i++) {
                 Node* next = current->next;
