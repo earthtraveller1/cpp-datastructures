@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "linked-list.hpp"
+#include <earthtraveller1/linked-list.hpp>
 
 using hello::LinkedList;
 
