@@ -6,7 +6,41 @@
 
 namespace hello {
     template <typename T> class LinkedList {
+    private:
+        struct Node {
+            Node* next;
+            T value;
+        };
+
     public:
+        template <typename NodeType> class Iterator {
+        public:
+            Iterator(NodeType* p_ptr) : m_ptr(p_ptr) {}
+
+            auto operator++() -> Iterator {
+                NodeType* new_ptr = m_ptr->next;
+                m_ptr = new_ptr;
+                return *this;
+            }
+
+            auto operator++(int) -> Iterator {
+                NodeType* old_ptr = m_ptr;
+                m_ptr = old_ptr->next;
+                return Iterator{old_ptr};
+            }
+
+            auto operator!=(Iterator other) -> bool {
+                return other->m_ptr != m_ptr;
+            }
+
+            auto operator*() -> NodeType* {
+                return m_ptr;
+            }
+
+        private:
+            NodeType* m_ptr;
+        };
+
         LinkedList() : m_first{} {}
 
         LinkedList(std::initializer_list<T> init_list)
@@ -81,13 +115,32 @@ namespace hello {
 
             return current->value;
         }
+
+        auto begin() -> Iterator<Node> {
+            return Iterator{m_first};
+        }
+
+        auto end() -> Iterator<Node> {
+            return Iterator{nullptr};
+        }
+
+        auto cbegin() const -> Iterator<const Node> {
+            return Iterator{m_first};
+        }
+
+        auto cend() const -> Iterator<const Node> {
+            return Iterator{nullptr};
+        }
+
+        auto begin() const -> Iterator<const Node> {
+            return cbegin();
+        }
+
+        auto end() const -> Iterator<const Node> {
+            return cend();
+        }
         
     private:
-        struct Node {
-            Node* next;
-            T value;
-        };
-
         // The first node.
         Node* m_first;
     };
